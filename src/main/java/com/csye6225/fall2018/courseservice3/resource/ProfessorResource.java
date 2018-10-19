@@ -15,13 +15,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.csye6225.fall2018.courseservice3.datamodel.Professor;
-import com.csye6225.fall2018.courseservice3.service.ProfessorsService;
+import com.csye6225.fall2018.courseservice3.service.ProfessorService;
 
-//.. /webapi/professors
-@Path("professors")
-public class ProfessorsResource {
+//.. /webapi/professor
+@Path("professor")
+public class ProfessorResource {
 
-	ProfessorsService profService = new ProfessorsService();
+	ProfessorService profService = new ProfessorService();
 
 	/*@GET
 

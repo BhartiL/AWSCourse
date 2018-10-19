@@ -8,7 +8,7 @@ import java.util.List;
 import com.csye6225.fall2018.courseservice3.datamodel.InMemoryDatabase;
 import com.csye6225.fall2018.courseservice3.datamodel.Professor;
 
-public class ProfessorsService {
+public class ProfessorService {
 
 	static HashMap<Long, Professor> prof_Map = InMemoryDatabase.getProfessorDB();
 
