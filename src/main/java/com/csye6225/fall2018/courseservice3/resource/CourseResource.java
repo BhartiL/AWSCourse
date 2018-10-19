@@ -75,14 +75,14 @@ public class CourseResource {
 	}
 
 	@GET
-	@Path("/{courseId}/getLectures")
+	@Path("/{courseId}/lecture")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Lecture> getLectures(@PathParam("courseId") String courseId) {
 		return courseService.getCourses(courseId).getLectures();
 	}
 
 	@POST
-	@Path("/{courseId}/postLecture")
+	@Path("/{courseId}/lecture")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ArrayList<Lecture> postLecture(@PathParam("courseId") String courseId, Lecture lecture) {

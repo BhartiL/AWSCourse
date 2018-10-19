@@ -13,7 +13,6 @@ public class StudentService {
 	static HashMap<Long, Student> student_Map = StudentInformationSystemDatabase.getStudentDB();
 
 	// Getting a list of all students
-	// GET "..webapi/students"
 	public List<Student> getAllStudents() {
 		// Getting the list
 		ArrayList<Student> list = new ArrayList<>();
