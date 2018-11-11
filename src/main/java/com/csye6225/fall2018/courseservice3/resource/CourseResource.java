@@ -1,8 +1,5 @@
 package com.csye6225.fall2018.courseservice3.resource;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -12,9 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import com.csye6225.fall2018.courseservice3.datamodel.Course;
-import com.csye6225.fall2018.courseservice3.datamodel.Lecture;
 import com.csye6225.fall2018.courseservice3.service.CourseService;
 
 @Path("course")
@@ -23,17 +18,10 @@ public class CourseResource {
 	CourseService courseService = new CourseService();
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Course> getAllCourses() {
-		return courseService.getAllCourses();
-	}
-
-	// ... webapi/course/1
-	@GET
 	@Path("/{courseId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Course getcourse(@PathParam("courseId") String courseId) {
-		return courseService.getCourses(courseId);
+		return courseService.getCourse(courseId);
 	}
 
 	@DELETE
@@ -47,7 +35,7 @@ public class CourseResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Course addCourse(Course co) {
-		return courseService.addCourse(co.getCourseId(), co);
+		return courseService.addCourse(co);
 	}
 
 	@PUT
@@ -62,45 +50,24 @@ public class CourseResource {
 	@Path("/{courseId}/student/{studentId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Course addStudentToCourse(@PathParam("studentId") Long studentId, @PathParam("courseId") String courseId) {
+	public Course addStudentToCourse(@PathParam("studentId") String studentId, @PathParam("courseId") String courseId) {
 		return courseService.addStudentToCourse(courseId, studentId);
 	}
 
 	@PUT
-	@Path("/{courseId}/program/{programId}")
+	@Path("/{courseId}/board/{boardId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Course registerProgram(@PathParam("programId") String programId, @PathParam("courseId") String courseId) {
-		return courseService.addProgramToCourse(courseId, programId);
-	}
-
-	@GET
-	@Path("/{courseId}/lecture")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Lecture> getLectures(@PathParam("courseId") String courseId) {
-		return courseService.getCourses(courseId).getLectures();
-	}
-
-	@POST
-	@Path("/{courseId}/lecture")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public ArrayList<Lecture> postLecture(@PathParam("courseId") String courseId, Lecture lecture) {
-		return courseService.addLectureInCourse(courseId, lecture);
-	}
-
-	@GET
-	@Path("/{courseId}/lecture/{lectureId}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Lecture getLecture(@PathParam("courseId") String courseId, @PathParam("lectureId") int lectureId) {
-		return courseService.getLecture(courseId, lectureId);
+	public Course addBoardToCourse(@PathParam("courseId") String courseId, @PathParam("boardId") String boardId) {
+		return courseService.addBoardToCourse(courseId, boardId);
 	}
 
 	@PUT
-	@Path("/{courseId}/lecture")
+	@Path("/{courseId}/professor/{professorId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Lecture updatelecture(@PathParam("courseId") String courseId, Lecture lecture) {
-		return courseService.updateLectureForCourse(courseId, lecture);
+	public Course addProfessorToCourse(@PathParam("courseId") String courseId,
+			@PathParam("professorId") String professorId) {
+		return courseService.addProfessorToCourse(courseId, professorId);
 	}
 }
