@@ -1,85 +1,89 @@
 package com.csye6225.fall2018.courseservice3.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.csye6225.fall2018.courseservice3.datamodel.Course;
-import com.csye6225.fall2018.courseservice3.datamodel.Lecture;
-import com.csye6225.fall2018.courseservice3.datamodel.StudentInformationSystemDatabase;
+import com.csye6225.fall2018.courseservice3.datamodel.DynamoDBConnector;
 
 public class CourseService {
 
-	public static HashMap<String, Course> course_Map = StudentInformationSystemDatabase.getCoursesDB();
+	DynamoDBConnector dynamoDB;
+	DynamoDBMapper mapper;
 
-	//adding courses
-	public Course addCourse(String courseId, Course course) {
-		course_Map.put(courseId, course);
-		return course_Map.get(courseId);
+	public CourseService() {
+		dynamoDB = new DynamoDBConnector();
+		DynamoDBConnector.init();
+		mapper = new DynamoDBMapper(dynamoDB.getClient());
+	}
+
+	// adding courses
+	public Course addCourse(Course course) {
+		mapper.save(course);
+		return course;
 	}
 
 	// getting specific course based on course id
-	public Course getCourses(String courseId) {
-		return course_Map.get(courseId);
+	public Course getCourse(String courseId) {
+		try {
+			Course partitionKey = new Course();
+			partitionKey.setCourseId(courseId);
+			DynamoDBQueryExpression<Course> queryExpression = new DynamoDBQueryExpression<>();
+			queryExpression.setHashKeyValues(partitionKey);
+			queryExpression.setIndexName("courseId-index");
+			queryExpression.setConsistentRead(false);
+			List<Course> course = mapper.query(Course.class, queryExpression);
+			if (course == null || course.isEmpty())
+				throw new Exception("No course found with course id " + courseId);
+			return course.get(0);
+		} catch (Exception e) {
+			e.getMessage();
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	// Deleting a course id
 	public Course deleteCourse(String courseId) {
-		Course deletedCourses = course_Map.get(courseId);
-		course_Map.remove(courseId);
-		return deletedCourses;
+		Course co = getCourse(courseId);
+		String id = co.getId();
+		Course objTodelete = mapper.load(Course.class, id);
+		objTodelete.setId(id);
+		mapper.delete(objTodelete);
+		System.out.println("This Course is deleted");
+		return co;
 	}
 
-	// updating course based on course id 
-	public Course updateCourse(String courseId, Course course) {
-		course_Map.put(courseId, course);
-		return course;
+	// updating course based on course id
+	public Course updateCourse(String courseId, Course co) {
+		Course course = this.getCourse(courseId);
+		co.setId(course.getId());
+		co.setCourseId(courseId);
+		mapper.batchSave(co);
+		return co;
 	}
-	//getting all courses
-	public List<Course> getAllCourses() {
-		// Getting the list
-		ArrayList<Course> list = new ArrayList<>();
-		for (Course course : course_Map.values()) {
-			list.add(course);
-		}
-		return list;
-	}
-	
+
 	// enrolling student to course
-	//mapping course id to student id
-	public Course addStudentToCourse(String courseId, Long studentId) {
-		Course course = course_Map.get(courseId);
+	public Course addStudentToCourse(String courseId, String studentId) {
+		Course course = this.getCourse(courseId);
 		course.addStudent(studentId);
+		mapper.batchSave(course);
 		return course;
-
 	}
 
-	// adding course in program 
-	// mapping program to course
-	public Course addProgramToCourse(String courseId, String programId) {
-		Course course = course_Map.get(courseId);
-		course.setProgramId(programId);
+	// adding board to course
+	public Course addBoardToCourse(String courseId, String boardId) {
+		Course course = this.getCourse(courseId);
+		course.setBoardId(boardId);
+		mapper.batchSave(course);
 		return course;
-
-	}
-		
-	// adding lecture to course
-	public ArrayList<Lecture> addLectureInCourse(String courseId, Lecture lecture) {
-		Course course = course_Map.get(courseId);
-		lecture.setLectureId(course.getLectures().size() + 1);
-		return course.addLecture(lecture);
 	}
 
-	// getting lecture based on course id and lecture id
-	public Lecture getLecture(String courseId, int lectureId) {
-		Course course = course_Map.get(courseId);
-		return course.getLectures().get(lectureId - 1);
-	}
-
-
-	public Lecture updateLectureForCourse(String courseId, Lecture lecture) {
-		Lecture postedLecture = getLecture(courseId, lecture.getLectureId());
-		postedLecture.setMaterials(lecture.getMaterials());
-		postedLecture.setNotes(lecture.getNotes());
-		return postedLecture;
+	// adding professor to course
+	public Course addProfessorToCourse(String courseId, String professorId) {
+		Course course = this.getCourse(courseId);
+		course.setProfessorId(professorId);
+		mapper.save(course);
+		return course;
 	}
 }
