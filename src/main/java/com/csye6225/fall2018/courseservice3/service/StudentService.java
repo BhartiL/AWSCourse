@@ -1,91 +1,73 @@
 package com.csye6225.fall2018.courseservice3.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import com.csye6225.fall2018.courseservice3.datamodel.Course;
-import com.csye6225.fall2018.courseservice3.datamodel.Program;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.csye6225.fall2018.courseservice3.datamodel.DynamoDBConnector;
 import com.csye6225.fall2018.courseservice3.datamodel.Student;
-import com.csye6225.fall2018.courseservice3.datamodel.StudentInformationSystemDatabase;
 
 public class StudentService {
 
-	static HashMap<Long, Student> student_Map = StudentInformationSystemDatabase.getStudentDB();
+	DynamoDBConnector dynamoDB;
+	DynamoDBMapper mapper;
 
-	// Getting a list of all students
-	public List<Student> getAllStudents() {
-		// Getting the list
-		ArrayList<Student> list = new ArrayList<>();
-		for (Student stu : student_Map.values()) {
-			list.add(stu);
-		}
-		return list;
-	}
-
-	// Adding a student
-	public void addStudent(String studentName, String programName, String photo) {
-		// Next Id
-		long nextAvailableId = student_Map.size() + 1;
-		Student stu = new Student(nextAvailableId, studentName, programName, photo);
-		student_Map.put(nextAvailableId, stu);
+	public StudentService() {
+		dynamoDB = new DynamoDBConnector();
+		DynamoDBConnector.init();
+		mapper = new DynamoDBMapper(dynamoDB.getClient());
 	}
 
 	public Student addStudent(Student stu) {
-
-		long nextAvailableId = student_Map.size() + 1;
-		stu.setStudentId(nextAvailableId);
-		student_Map.put(nextAvailableId, stu);
-		return student_Map.get(nextAvailableId);
+		mapper.save(stu);
+		return stu;
 	}
 
 	// Getting One student
-	public Student getStudent(Long studentId) {
-		return student_Map.get(studentId);
+	public Student getStudent(String studentId) {
+			try {
+			Student StudentObj = new Student();
+			StudentObj.setStudentId(studentId);
+			DynamoDBQueryExpression<Student> queryExpression = new DynamoDBQueryExpression<>();
+			queryExpression.setHashKeyValues(StudentObj);
+			queryExpression.setIndexName("studentId-index");
+			queryExpression.setConsistentRead(false);
+			List<Student> student = mapper.query(Student.class, queryExpression);
+			if (student == null || student.isEmpty())
+				throw new Exception("No students found with student id " + studentId);
+			return student.get(0);
+		} catch (Exception e) {
+			e.getMessage();
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	// Deleting a student
-	public Student deleteStudent(Long studentId) {
-		Student deletedStuDetails = student_Map.get(studentId);
-		student_Map.remove(studentId);
+	public Student deleteStudent(String studentId) {
+		Student deletedStuDetails = getStudent(studentId);
+		String id = deletedStuDetails.getId();
+		Student objTodelete = mapper.load(Student.class, id);
+		objTodelete.setId(id);
+		mapper.delete(objTodelete);
+		System.out.println("The following student got deleted");
 		return deletedStuDetails;
 	}
 
 	// Updating student Info
-	public Student updateStudentInformation(Long studentId, Student stu) {
-		Student stuObject = student_Map.get(studentId);
-		studentId = stuObject.getStudentId();
+	public Student updateStudentInformation(String studentId, Student stu) {
+		Student student = this.getStudent(studentId);
+		stu.setId(student.getId());
 		stu.setStudentId(studentId);
-		// Publishing New Values
-		student_Map.put(studentId, stu);
+		mapper.save(stu);
 		return stu;
 	}
 
-	public List<Student> getStudentsByProgram(String programId) {
-		// Getting the list
-		ArrayList<Student> list = new ArrayList<>();
-		for (Student stu : student_Map.values()) {
-			if (stu.getProgramId().equals(programId)) {
-				list.add(stu);
-			}
-		}
-		return list;
-	}
-
-	// enrolling a student to a course
-	public Student enrollStudentToCourse(String courseId, Long studentId) {
-		Student stuObject = student_Map.get(studentId);
+	//enrolling a student to a course
+	public Student enrollStudentToCourse(String courseId, String studentId) {
+		Student stuObject = this.getStudent(studentId);
 		stuObject.addCourse(courseId);
-		Course course = CourseService.course_Map.get(courseId);
-		course.addStudent(studentId);
+		mapper.save(stuObject);
 		return stuObject;
 	}
 
-	// enrolling a student in a program
-	public Student enrollStudentInProgram(String progId, Long studentId) {
-		Student stuObject = student_Map.get(studentId);
-		stuObject.setProgramId(progId);
-		Program program = ProgramService.program_Map.get(progId);
-		program.addStudent(studentId);
-		return stuObject;
-	}
 }
