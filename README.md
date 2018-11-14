@@ -39,7 +39,6 @@ Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/stude
 Method: PUT
 
 URL: /webapi/student/{studentId}
-
 Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/10
 
 Payload:
