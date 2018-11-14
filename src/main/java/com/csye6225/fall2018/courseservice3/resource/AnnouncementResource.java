@@ -20,11 +20,10 @@ public class AnnouncementResource {
 	AnnouncementService annService = new AnnouncementService();
 
 	@GET
-	@Path("/{announcementId}/board/{boardId}")
+	@Path("/board/{boardId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Announcement getAnnouncement(@PathParam("announcementId") String announcementId,
-			@PathParam("boardId") String boardId) {
-		return annService.getAnnouncement(announcementId, boardId);
+	public List<Announcement> getAllAnnouncementForBoard(@PathParam("boardId") String boardId) {
+		return annService.getAllAnnouncementForBoard(boardId);
 	}
 
 	@POST
@@ -35,26 +34,27 @@ public class AnnouncementResource {
 	}
 
 	@PUT
-	@Path("/{announcementId}/board/{boardId}")
+	@Path("/{boardId_announcementId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Announcement updateAnnouncement(@PathParam("announcementId") String announcementId,
-			@PathParam("boardId") String boardId, Announcement ann) {
-		return annService.updateAnnouncement(announcementId, boardId, ann);
+	public Announcement updateAnnouncement(@PathParam("boardId_announcementId") String boardId_announcementId
+			, Announcement ann) {
+		return annService.updateAnnouncement(boardId_announcementId, ann);
 	}
 
 	@GET
-	@Path("/{boardId}")
+	@Path("/{boardId_announcementId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Announcement> getAllAnnouncementForBoard(@PathParam("boardId") String boardId) {
-		return annService.getAllAnnouncementForBoard(boardId);
+	public List<Announcement> getAnnouncementForBoard(@PathParam("boardId_announcementId") String boardId_announcementId) {
+		return annService.getAnnouncementForBoard(boardId_announcementId);
 	}
 
 	@DELETE
-	@Path("/{announcementId}/board/{boardId}")
+	@Path("/{boardId_announcementId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Announcement deleteAnnouncement(@PathParam("announcementId") String announcementId,
-			@PathParam("boardId") String boardId) {
-		return annService.deleteAnnouncement(announcementId, boardId);
+	public Announcement deleteAnnouncement(@PathParam("boardId_announcementId") String boardId_announcementId){
+		return annService.deleteAnnouncement(boardId_announcementId);
 	}
+	
+	
 }
