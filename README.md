@@ -132,7 +132,7 @@ Payload:
 	"department":"IS",
 	"boardId": "board1",
 	"professorId":"Jami.Avinav",
-    	"listOfRegisteredStudents":["10","100"]
+       "listOfRegisteredStudents":["10","100"]
   
    }
  ```
@@ -159,7 +159,7 @@ Payload:
 	"department":"MIS",
 	"boardId": "board2",
 	"professorId":"Jami.Avinav1",
-    	"listOfRegisteredStudents":["10","100"]
+      "listOfRegisteredStudents":["10","100"]
    }
  ```
    
