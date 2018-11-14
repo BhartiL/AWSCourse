@@ -1,7 +1,7 @@
 # Git-Hub Url
 https://github.com/BhartiL/AWSCourse/Assignment2
 
-#AWS URL
+# AWS URL
 http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com
 ----
 ## Student:
@@ -16,17 +16,17 @@ Payload:
 	"department":"CS",
 	"firstName": "Cannolie",
 	"joiningDate":"08/09/2018",
-    "lastName": "Srock",
-    "registeredCourses":["MIS4560","INFO5280"]
+    	"lastName": "Srock",
+    	"registeredCourses":["MIS4560","INFO5280"]
   
   }
   ```
   
 ### Get student by student id
-  	Method: GET
-   URL: webapi/student/{studentId}
+Method: GET
    
-  Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
+URL: webapi/student/{studentId}
+Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
   
   
 ### Delete student 
@@ -48,8 +48,8 @@ Payload:
 	"department":"IS",
 	"firstName": "Testing Update",
 	"joiningDate":"08/08/9999",
-    "lastName": "T",
-    "registeredCourses":["abc1","abc2"]
+    	"lastName": "T",
+    	"registeredCourses":["abc1","abc2"]
   }
   ```
   
@@ -130,7 +130,7 @@ Payload:
 	"department":"IS",
 	"boardId": "board1",
 	"professorId":"Jami.Avinav",
-    "listOfRegisteredStudents":["10","100"]
+    	"listOfRegisteredStudents":["10","100"]
   
    }
  ```
@@ -156,7 +156,7 @@ Payload:
 	"department":"MIS",
 	"boardId": "board2",
 	"professorId":"Jami.Avinav1",
-    "listOfRegisteredStudents":["10","100"]
+    	"listOfRegisteredStudents":["10","100"]
    }
  ```
    
