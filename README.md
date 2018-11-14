@@ -26,6 +26,7 @@ Payload:
 Method: GET
    
 URL: webapi/student/{studentId}
+
 Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
   
   
@@ -33,12 +34,14 @@ Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/stude
 Method: DELETE
 
 URL: /webapi/student/{studentId}
+
 Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
    
 ### Update student info 
 Method: PUT
 
 URL: /webapi/student/{studentId}
+
 Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/10
 
 Payload:
@@ -146,6 +149,7 @@ Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course
 Method: PUT
 
 URL: /webapi/course/{courseId}
+
 Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345
 
 Payload: 
@@ -272,7 +276,7 @@ URL: /webapi/announcement/{boardId_announcementId}
 Payload(boardId and announcementId are optional): 
  ```
   {
-   "announcementId":"101",
+   	"announcementId":"101",
 	"announcementText":"Text1",
 	"boardId":"board18"
 	
@@ -280,5 +284,6 @@ Payload(boardId and announcementId are optional):
  ```
 ### Delete Announcement
 Method: PUT
+
 URL: /webapi/announcement/{boardId_announcementId}
 
