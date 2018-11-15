@@ -1,5 +1,5 @@
 # Git-Hub Url
-https://github.com/BhartiL/AWSCourse/Assignment2
+https://github.com/BhartiL/AWSCourse/tree/assignment2
 
 # AWS URL
 http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com
