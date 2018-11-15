@@ -283,7 +283,7 @@ Payload(boardId and announcementId are optional):
 }
  ```
 ### Delete Announcement
-Method: PUT
+Method: DELETE
 
 URL: /webapi/announcement/{boardId_announcementId}
 
