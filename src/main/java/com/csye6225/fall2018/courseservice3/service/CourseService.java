@@ -102,7 +102,7 @@ public class CourseService {
 	//snsClient.setRegion(Region.getRegion(Regions.US_EAST_1));
 
 	//create a new SNS topic
-	CreateTopicRequest createTopicRequest = new CreateTopicRequest("Channel "+ co.getCourseId());
+	CreateTopicRequest createTopicRequest = new CreateTopicRequest("Channel-"+ co.getCourseId());
 	CreateTopicResult createTopicResult = snsClient.createTopic(createTopicRequest);
 	//print TopicArn
 	System.out.println(createTopicResult);
