@@ -1,111 +1,35 @@
 # Git-Hub Url
-https://github.com/BhartiL/AWSCourse
+https://github.com/BhartiL/AWSCourse/tree/assignment3
 
+# AWS URL
+http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com
 ----
-## Student:
-### Create student
-Method: POST
-AWS URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student
 
-Payload:
-```
-{
-   "studentName": "Bharti Ladhani",
-        "photo": "photo1.jpg",
-        "programId": "CSYE",
-       "courses": "CSYE9810"
-  }
-  ```
-  
-### Get all students
-   Method: GET
-   URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/
-   
-  ### Get student by student ID
-  Method: GET
-   URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/{studentId}
-  
-  Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
-  
-  
-### GET student based on program Id:
-Method: GET
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/program/{programId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/program/IS
-
-Note: You should have a program object created first.
-  
-### DELETE student 
-Method: DELETE
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/{studentId}
-
-Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
-   
-### Update student info 
-Method: PUT
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/{studentId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
-
-Payload:
-```
-{
-   "studentName": "Jeff Bezos",
-        "photo": "photo1.jpg",
-        "programId": "IS",
-       "courses": "CSYE9810"
-  }
-  ```
-  
-### Enroll student into a program
-Method: PUT
-http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/{studentId}/program/{programId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1/program/CS
-
-### Enroll student into a course
-Method: PUT
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/{studentId}/course/{courseId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1/course/Info123
-
--------------------------------------------------------------------------------------------------------------------------------
  ## Professor:
 
 ### Create professor
  
- Method: POST
+Method: POST
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor
-
-Postman URL:http://localhost:8080/courseservice3/webapi/professor
+URL: /webapi/professor
 
 Payload:
 ```
 {
-	"firstName" : "Prof3",
-	"department": "Dept2",
-	"joiningDate": "2018-01-01"
+    "department": "CSYE",
+    "firstName": "Avinav",
+    "joiningDate": "09/11/2018",
+    "lastName": "Jami2",
+    "professorId": "10"
 
 }
 ```
-
-### Get all professors
-
-Method: GET
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor
 
 ### Get one particular professor
 
 Method: GET
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor/{professorID}
+URL: /webapi/professor/{professorId}
 
 Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor/1
 
@@ -113,17 +37,15 @@ Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/profes
 
 Method: PUT 
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor/{professorID}
+URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor/{professorId}
 
 Payload: 
 ```
 {
-
-	"professorId" : "3",
-	"firstName" : "Prof3",
-	"department": "Dept2",
-	"joiningDate": "2018-01-01"
-
+    "department": "IS",
+    "firstName": "Avinav",
+    "joiningDate": "09/12/2018",
+    "lastName": "Jami",
 }
 ```
 
@@ -132,41 +54,33 @@ Payload:
 
 Method: DELETE 
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor/{professorID}
+URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/professor/{professorId}
 
 -------
-  
+
  ## Course:
  
 ### Create a course
 
 Method: POST
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course
+URL: /webapi/course
 
 Payload: 
  ```
  {
-   		"courseId":"CSYE9810",
-        "programId": "CSYE",
-        "professorId": 1,
-        "studentTAId":  1,
-        "board": "board1",
-        "roster": "roster1"
+	"courseId":"Info2345",
+	"taId":"Jing",
+	"department":"IS",
+	"boardId": "board1",
+	"professorId":"Jami.Avinav"
    }
  ```
- 
-### Get all courses
-
-Method: GET
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course
-
 ### Get one particular course
 
 Method: GET
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}
+URL: /webapi/course/{courseId}
 
 Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345
   
@@ -174,158 +88,212 @@ Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course
 
 Method: PUT
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}
+URL: /webapi/course/{courseId}
+
+Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345
 
 Payload: 
  ```
  {
-   		"courseId":"CSYE9810",
-        "programId": "CSYE",
-        "professorId": 1,
-        "studentTAId":  1,
-        "board": "board1",
-        "roster": "roster1"
+   	"taId":"Jing1",
+	"department":"MIS",
+	"boardId": "board2",
+	"professorId":"Jami.Avinav1"
    }
  ```
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345
    
 ### Delete course
 Method: DELETE
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}
+URL: /webapi/course/{courseId}
 
 Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345
    
-### Register student into course
 
+### Add board to course
 Method: PUT
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}/student/{studentId} 
+URL: /webapi/course/{courseId}/board/{boardId}
 
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info123/student/1
-
-### Map program to course
-Method: PUT
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}/program/{programId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info123/program/CS
+Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info123/board/board1
    
-### POST a new lecture in course
+### Add professor to course
 Method: POST
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}/lecture
+URL: /webapi/course/{courseId}/professor/{professorId}
 
-Ex : http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/INFO123/lecture
+Ex : http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/INFO123/professsor/2
 
-Payload:
-```
-{
-   		"materials": ["material1","material2"],
-        "notes": ["notes1", "notes2"]
-}
-```
+----------
 
-### Get all lectures for course
+## Board
 
-Method: GET
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}/lecture
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345/lecture
-
-### Get one particular lecture for course
-
-Method: GET
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}/lecture/{lectureId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345/lecture/1
-
-### Update one particular lecture for course
-
-Method: PUT
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/{courseId}/lecture/
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345/lecture/
-
-Payload:
-```
-{       
-        "lectureId" : 1,
-   		"materials": ["material1","material2"],
-        "notes": ["notes1", "notes2"]
-}
-```
-
-------------
-## Program
-
-### Create a program
+### Create a Board
 
 Method: POST
 
-URL : http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program
+URL : /webapi/board
 
 Payload: 
 ``` 
 {
-   		"programId":"CSYE",
-   		"programName": "Computer Systems Engineering"
-   		
+    "boardId": "board3",
+    "courseId":"CSYE899"
 }
 ```
 
-### Get all progreams
+### Get board by board Id
 
 Method: GET
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program
+URL: /webapi/board/{boardId}
 
-### Get one particular program
-
-Method: GET
-
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/{programId}
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/IS
-
-### Update program
+### Update board
 
 Method: PUT
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/{programId}
+URL: /webapi/board/{boardId}
 
 Payload: 
  ```
   {
-        "courses": ["INFO123", "INFO567"],
-        "enrolledStudents": ["1", "2", "6"],
-        "programId": "CSYE",
-        "programName": "Computer Systems Engineering"
-    }
- ```
-
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/course/Info2345
-   
-### Delete program
+    "courseId":"CSYE8991"
+}
+ ```   
+### Delete board
 Method: DELETE
 
-URL: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/{programId}
+URL: /webapi/board/{boardId}
 
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/CS
+Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/board/board2
 
-### Map program to a course
+### add/update course for board
 Method: PUT
 
-URL : http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/{programId}/course/{courseId}
+URL: /webapi/board/{boardId}/course/{courseId}
 
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/IS/course/Info9850
+Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/board/board2/course/Info3456
 
-### Map student to a program
+------------
+## Student:
+### Create student
+Method: POST
+URL: /webapi/student
+
+Payload:
+```
+{
+	"studentId":"103",
+	"department":"CS",
+	"firstName": "Cannolie",
+	"joiningDate":"08/09/2018",
+    	"lastName": "Srock",
+    	"emailId":"ladhani.b@husky.neu.edu"
+  
+  }
+  ```
+  
+### Get student by student id
+Method: GET
+   
+URL: webapi/student/{studentId}
+
+Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
+  
+  
+### Delete student 
+Method: DELETE
+
+URL: /webapi/student/{studentId}
+
+Ex.: http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/1
+   
+### Update student info 
 Method: PUT
 
-URL : http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/{programId}/student/{studentId}
+URL: /webapi/student/{studentId}
 
-Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/program/IS/student/1
+Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/10
+
+Payload:
+```
+{
+	"department":"IS",
+	"firstName": "Testing Update",
+	"joiningDate":"08/08/9999",
+    	"lastName": "T",
+    "emailId":"ladhani.b@husky.neu.edu"
+  }
+  ```
+  
+### Register course for student
+Method: POST
+
+URL: /webapi/student/{studentId}/register
+
+Ex. http://bhartiapp-env.vjipgaziy2.us-east-2.elasticbeanstalk.com/webapi/student/10/register
+
+Payload:
+```
+{
+	"courseId":"INFO6100"
+}
+  
+```
+---------------
+## Announcement
+Method: POST
+
+URL : /webapi/announcement
+Payload:
+``` 
+{
+	"announcementId":"101",
+	"announcementText":"Text1",
+	"boardId":"board18"
+	
+}
+```
+### Get one announcement
+
+Method: GET
+
+URL: /webapi/announcement/{boardId_announcementId}
+
+### Get all announcements for board Id
+
+Method: GET
+
+URL: /webapi/announcement/board/{boardId}
+
+### Update Announcement 
+
+Method: PUT
+
+URL: /webapi/announcement/{boardId_announcementId}
+
+Payload(boardId and announcementId are optional): 
+ ```
+  {
+       "announcementId":"101",
+	"announcementText":"Text1",
+	"boardId":"board18"
+	
+}
+ ```
+### Delete Announcement
+Method: DELETE
+
+URL: /webapi/announcement/{boardId_announcementId}
+
+------------
+
+#Steps to post announcement:
+1. Create course using Course POST API
+2. Create board for course using board POST API
+3. Create student using student POST API
+4. Register student using student POST API for register action. 
+With step 4, student will receive email to confirm subscription. Click on the link to  Confirm. 
+5. Post an announcement using Announcement POST API.
+This will cause deployed lambda function to publish the SNS message to the subscriber, i.e. student's email. 
+
