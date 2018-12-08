@@ -62,5 +62,4 @@ public class ProfessorService {
 		mapper.save(prof);
 		return prof;
 	}
-
 }

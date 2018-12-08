@@ -30,6 +30,7 @@ public class AnnouncementResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Announcement addAnnouncement(Announcement ann) {
+		
 		return annService.addAnnouncement(ann);
 	}
 
@@ -55,6 +56,7 @@ public class AnnouncementResource {
 	public Announcement deleteAnnouncement(@PathParam("boardId_announcementId") String boardId_announcementId){
 		return annService.deleteAnnouncement(boardId_announcementId);
 	}
+	
 	
 	
 }

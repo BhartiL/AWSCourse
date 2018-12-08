@@ -35,6 +35,7 @@ public class CourseResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Course addCourse(Course co) {
+		co.setNotificationTopic(courseService.createTopic(co));
 		return courseService.addCourse(co);
 	}
 

@@ -12,22 +12,25 @@ public class DynamoDBConnector {
 	public static void init() {
 		try {
 			if (dynamoDB == null) {
+				ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
+				credentialsProvider.getCredentials();
+
+				dynamoDB = AmazonDynamoDBClientBuilder.standard().withCredentials(credentialsProvider)
+						.withRegion("us-east-2").build();
+//			dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
+				// System.out.println("I created the client");
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (dynamoDB == null) {
 				InstanceProfileCredentialsProvider credentialsProvider = new InstanceProfileCredentialsProvider(false);
 				credentialsProvider.getCredentials();
 
 				dynamoDB = AmazonDynamoDBClientBuilder.standard().withCredentials(credentialsProvider)
 						.withRegion("us-east-2").build();
 				System.out.println("I created the client");
-			}
-		} catch (Exception e) {
-			if (dynamoDB == null) {
-				ProfileCredentialsProvider credentialsProvider = new ProfileCredentialsProvider();
-				credentialsProvider.getCredentials();
-
-				dynamoDB = AmazonDynamoDBClientBuilder.standard().withCredentials(credentialsProvider)
-						.withRegion("us-east-2").build();
-				System.out.println("I created the client");
-
 			}
 		}
 

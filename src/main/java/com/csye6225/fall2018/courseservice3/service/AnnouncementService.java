@@ -1,6 +1,5 @@
 package com.csye6225.fall2018.courseservice3.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;

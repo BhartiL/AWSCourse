@@ -1,10 +1,18 @@
 package com.csye6225.fall2018.courseservice3.service;
 
 import java.util.List;
+
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.csye6225.fall2018.courseservice3.datamodel.Course;
 import com.csye6225.fall2018.courseservice3.datamodel.DynamoDBConnector;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClient;
+
+import com.amazonaws.services.sns.model.CreateTopicRequest;
+import com.amazonaws.services.sns.model.CreateTopicResult;
+
 
 public class CourseService {
 
@@ -19,6 +27,7 @@ public class CourseService {
 
 	// adding courses
 	public Course addCourse(Course course) {
+		//mapper.batchSave(course);
 		mapper.save(course);
 		return course;
 	}
@@ -86,4 +95,21 @@ public class CourseService {
 		mapper.save(course);
 		return course;
 	}
+	
+	public String createTopic(Course co) {
+	//create a new SNS client and set endpoint
+		AmazonSNS snsClient =  AmazonSNSClient.builder().withRegion(Regions.US_EAST_2).build();	                           
+	//snsClient.setRegion(Region.getRegion(Regions.US_EAST_1));
+
+	//create a new SNS topic
+	CreateTopicRequest createTopicRequest = new CreateTopicRequest("Channel "+ co.getCourseId());
+	CreateTopicResult createTopicResult = snsClient.createTopic(createTopicRequest);
+	//print TopicArn
+	System.out.println(createTopicResult);
+	//get request id for CreateTopicRequest from SNS metadata		
+	System.out.println("CreateTopicRequest - " + snsClient.getCachedResponseMetadata(createTopicRequest));
+	String x= createTopicResult.getTopicArn();
+	return x;
+	}
+
 }

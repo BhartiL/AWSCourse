@@ -1,8 +1,14 @@
 package com.csye6225.fall2018.courseservice3.service;
 
 import java.util.List;
+
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.model.SubscribeRequest;
+import com.csye6225.fall2018.courseservice3.datamodel.Course;
 import com.csye6225.fall2018.courseservice3.datamodel.DynamoDBConnector;
 import com.csye6225.fall2018.courseservice3.datamodel.Student;
 
@@ -70,4 +76,15 @@ public class StudentService {
 		return stuObject;
 	}
 
+	public void subscribe(String courseId, String emailId) {
+		//subscribe to an SNS topic
+		AmazonSNS snsClient =  AmazonSNSClient.builder().withRegion(Regions.US_EAST_2).build();
+		CourseService cs= new CourseService();
+		Course course = cs.getCourse(courseId);
+		SubscribeRequest subRequest = new SubscribeRequest(course.getNotificationTopic(), "email", emailId);
+		snsClient.subscribe(subRequest);
+		//get request id for SubscribeRequest from SNS metadata
+		System.out.println("SubscribeRequest - " + snsClient.getCachedResponseMetadata(subRequest));
+		System.out.println("Check your email and confirm subscription.");
+	}
 }
