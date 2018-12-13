@@ -1,0 +1,5 @@
+#Lambda function to generate random board id that is put in board and course tables
+#This lambda function is referenced in state machine
+import random
+def my_handler(event, context):
+    return "Board" + str(random.randint(1,1000000))
