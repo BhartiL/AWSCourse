@@ -3,9 +3,10 @@ package com.csye6225.fall2018.courseservice3.service;
 import java.util.List;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.csye6225.fall2018.courseservice3.datamodel.Board;
 import com.csye6225.fall2018.courseservice3.datamodel.DynamoDBConnector;
+import com.csye6225.fall2018.courseservice3.datamodel.Registrar;
 
 public class BoardService {
 	DynamoDBConnector dynamoDB;
@@ -71,4 +72,18 @@ public class BoardService {
 		mapper.batchSave(board);
 		return board;
 	}
+
+	public List<Board> getBoards() {
+			try {
+				DynamoDBScanExpression queryExpression = new DynamoDBScanExpression();
+				List<Board> boards = mapper.scan(Board.class, queryExpression);
+				
+				return boards;
+			} catch (Exception e) {
+				e.getMessage();
+				e.printStackTrace();
+				return null;
+			}
+	
+		}
 }

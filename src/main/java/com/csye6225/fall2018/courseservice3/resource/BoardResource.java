@@ -1,5 +1,7 @@
 package com.csye6225.fall2018.courseservice3.resource;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,7 +17,13 @@ import com.csye6225.fall2018.courseservice3.service.BoardService;
 @Path("board")
 public class BoardResource {
 	BoardService boardService = new BoardService();
-
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Board> getBoards() {
+		return boardService.getBoards();
+	}
+	
 	@GET
 	@Path("/{boardId}")
 	@Produces(MediaType.APPLICATION_JSON)
