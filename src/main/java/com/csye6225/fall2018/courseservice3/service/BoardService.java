@@ -65,7 +65,7 @@ public class BoardService {
 		return bo;
 	}
 
-	//adding course to board
+	// adding course to board
 	public Board addCourseToBoard(String boardId, String courseId) {
 		Board board = this.getBoard(boardId);
 		board.setCourseId(courseId);
@@ -74,16 +74,16 @@ public class BoardService {
 	}
 
 	public List<Board> getBoards() {
-			try {
-				DynamoDBScanExpression queryExpression = new DynamoDBScanExpression();
-				List<Board> boards = mapper.scan(Board.class, queryExpression);
-				
-				return boards;
-			} catch (Exception e) {
-				e.getMessage();
-				e.printStackTrace();
-				return null;
-			}
-	
+		try {
+			DynamoDBScanExpression queryExpression = new DynamoDBScanExpression();
+			List<Board> boards = mapper.scan(Board.class, queryExpression);
+
+			return boards;
+		} catch (Exception e) {
+			e.getMessage();
+			e.printStackTrace();
+			return null;
 		}
+
+	}
 }
