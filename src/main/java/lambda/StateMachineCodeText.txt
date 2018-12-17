@@ -1,0 +1,88 @@
+{
+  "StartAt": "DepartmentCheck",
+  "States": {
+    "DepartmentCheck": {
+      "Type": "Choice",
+  "Choices": [
+    {
+        "Not": {
+          "Variable": "$.department",
+          "StringEquals": "Seminars"
+        },
+        "Next": "InsertRecordInRegistrar"
+    }
+      ],
+      "Default": "EndStep"
+    },
+     "InsertRecordInRegistrar":{
+      "Type": "Task",
+       "Resource": "arn:aws:lambda:us-east-2:273316780785:function:RegistrarLambdaHandler",
+          "ResultPath": "$.taskresult",
+      "Next": "GenerateUUID"
+    },
+    "GenerateUUID": {
+      "Type": "Task",
+      "Resource":"arn:aws:lambda:us-east-2:273316780785:function:GenerateUUID",
+      "ResultPath": "$.taskresult",
+      "Next": "Create Board"
+    },
+    "Create Board":{
+      "Type": "Task",
+       "Resource": "arn:aws:states:::dynamodb:putItem",
+           "Parameters": {
+               "TableName": "Board",
+               "Item": {
+              "id": {
+                   "S.$": "$.id"
+                 },
+                 "boardId": {
+                   "S.$": "$.taskresult"
+                 },
+                 "courseId": {
+                   "S.$": "$.courseId"
+                 }
+                
+                 
+               }
+           },
+          "ResultPath": "$.DynamoDB",
+      "Next": "Update Board In Course"
+    },
+    "Update Board In Course":{
+      "Type": "Task",
+       "Resource": "arn:aws:states:::dynamodb:putItem",
+           "Parameters": {
+               "TableName": "Course",
+               "Item": {
+              "id": {
+                   "S.$": "$.id"
+                 },
+                 "boardId": {
+                   "S.$": "$.taskresult"
+                 },
+                 "courseId": {
+                   "S.$": "$.courseId"
+                 },
+                 "department": {
+                   "S.$": "$.department"
+                 },
+                 "taId": {
+                   "S.$": "$.taId"
+                 },
+                 "professorId": {
+                   "S.$": "$.professorId"
+                 }
+               }
+           },
+          "ResultPath": "$.DynamoDB",
+      "Next": "EndStep"
+    }
+    ,
+   
+    "EndStep":{
+      "Type": "Pass",
+      "Result": "End step!",
+      "End": true
+    }
+  }
+}
